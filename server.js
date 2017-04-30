@@ -98,7 +98,7 @@ slapp
         
         .route('how-are-you', state)
     }  
-  
+  state.status = text
   
   
   

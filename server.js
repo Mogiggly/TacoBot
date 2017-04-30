@@ -79,6 +79,29 @@ slapp
     // At this point, since we don't route anywhere, the "conversation" is over
   })
 
+// order command
+
+slapp
+  .message('^(order|tacos)$', ['direct_mention', 'direct_message'], (msg, text) => {
+    msg
+      .say(`${text}, How many pack of five tacos would you like?`)
+      // sends next event from user to this route, passing along state
+      .route('how-are-you', { greeting: text })
+  })
+  .route('how-are-you', (msg, state) => {
+    var text = (msg.body.event && msg.body.event.text) || ''
+
+    // user may not have typed text as their next action, ask again and re-route
+    if (!text) {
+      return msg
+        .say("Whoops, I'm still waiting to hear how many tacos you want.")
+        
+        .route('how-are-you', state)
+    }  
+  
+  
+  
+  
 // Can use a regex as well
 slapp.message(/^(thanks|thank you)/i, ['mention', 'direct_message'], (msg) => {
   // You can provide a list of responses, and a random one will be chosen

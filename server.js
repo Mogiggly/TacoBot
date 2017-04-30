@@ -34,23 +34,23 @@ slapp.message('help', ['mention', 'direct_message'], (msg) => {
   msg.say(HELP_TEXT)
 })
 
-// "Conversation" flow that tracks state - kicks off when user says hi, hello or hey
+// ask for how many tacos your want
 slapp
-  .message('^(hi|hello|hey)$', ['direct_mention', 'direct_message'], (msg, text) => {
+  .message('^(Taco|order)$', ['direct_mention', 'direct_message'], (msg, text) => {
     msg
-      .say(`${text}, how are you?`)
+      .say(`${text}, How many packs of five tacos do you want?`)
       // sends next event from user to this route, passing along state
-      .route('how-are-you', { greeting: text })
+      .route('how-many', { greeting: text })
   })
-  .route('how-are-you', (msg, state) => {
+  .route('how-many', (msg, state) => {
     var text = (msg.body.event && msg.body.event.text) || ''
 
     // user may not have typed text as their next action, ask again and re-route
     if (!text) {
       return msg
-        .say("Whoops, I'm still waiting to hear how you're doing.")
-        .say('How are you?')
-        .route('how-are-you', state)
+        .say("Whoops, I'm still waiting to hear how many tacos your want.")
+        .say('How many packs of five tacos do you want?')
+        .route('how-many', state)
     }
 
     // add their response to state

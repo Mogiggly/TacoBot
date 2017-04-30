@@ -57,7 +57,7 @@ slapp
     state.status = text
 
     msg
-      .say(`You ordered Tacos. Is that correct?')
+      .say(`Ok then. What's your favorite color?`)
       .route('color', state)
   })
   .route('color', (msg, state) => {
